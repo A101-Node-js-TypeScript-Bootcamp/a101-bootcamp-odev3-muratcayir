@@ -12,6 +12,7 @@ const listAllProduct = async () => {
   return data
 };
 
+
 const singleProduct = async (params) => {
   var items = {
     TableName: table,
@@ -22,7 +23,15 @@ const singleProduct = async (params) => {
     return await docClient.get(items).promise();
     
 };
+const discountProduct = async () => {
+  const items = {
+    TableName: table,
+  };
+  const data = await docClient.scan(items).promise();
+  const discountFilter=data.Items.filter(value=>value.isDiscount)
+  return discountFilter
+};
 
 
 
-module.exports = {listAllProduct,singleProduct};
+module.exports = {listAllProduct,singleProduct,discountProduct};
