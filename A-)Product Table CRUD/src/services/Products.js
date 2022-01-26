@@ -12,5 +12,17 @@ const listAllProduct = async () => {
   return data
 };
 
+const singleProduct = async (params) => {
+  var items = {
+    TableName: table,
+    Key: {
+      productId: params.productId,
+    },
+  };
+    return await docClient.get(items).promise();
+    
+};
 
-module.exports = {listAllProduct};
+
+
+module.exports = {listAllProduct,singleProduct};
