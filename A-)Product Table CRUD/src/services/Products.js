@@ -12,6 +12,23 @@ const listAllProduct = async () => {
   return data
 };
 
+const createProduct = async (params) => {
+ 
+  const item = {
+    TableName: table,
+    Item: {
+      productId: uuidv4(),
+      stock: params.stock,
+      productName: params.productName,
+      isDiscount: params.isDiscount,
+      category: {
+        categoryId: uuidv4(),
+        categoryName: params.category.categoryName,
+      },
+    },
+  };
+  return await docClient.put(item).promise();
+};
 
 const singleProduct = async (params) => {
   var items = {
@@ -33,5 +50,4 @@ const discountProduct = async () => {
 };
 
 
-
-module.exports = {listAllProduct,singleProduct,discountProduct};
+module.exports = {listAllProduct,createProduct,singleProduct,discountProduct};
