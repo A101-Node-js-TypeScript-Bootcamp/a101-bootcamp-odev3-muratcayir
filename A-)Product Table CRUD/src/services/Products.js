@@ -49,5 +49,21 @@ const discountProduct = async () => {
   return discountFilter
 };
 
+const updateProductStock = async (productId,modifyStock) => {
+  var item = {
+    TableName: table,
+    Key: {
+      productId:productId,
+    },
+    UpdateExpression: "set stock = :stock",
+    ExpressionAttributeValues: {
+      ":stock":modifyStock
+    },
+    ReturnValues: "UPDATED_NEW"
+  };
+ const data= await docClient.update(item).promise();
+ return data
+};
 
-module.exports = {listAllProduct,createProduct,singleProduct,discountProduct};
+
+module.exports = {listAllProduct,createProduct,singleProduct,updateProductStock,discountProduct};
