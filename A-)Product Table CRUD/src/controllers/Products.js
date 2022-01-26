@@ -1,4 +1,4 @@
-const { listAllProduct,createProduct,singleProduct,updateProductStock,discountProduct}= require("../services/Products")
+const { listAllProduct,createProduct,singleProduct,deleteProduct,updateProductStock,discountProduct}= require("../services/Products")
 const httpStatus = require("http-status");
 
 
@@ -51,5 +51,27 @@ const updateProduct=(req,res)=>{
     }) 
 }
 
-
-module.exports={getAllProduct,addProduct,getProduct,updateProduct,getDiscountProduct}
+const removeProduct=(req,res)=>{
+    if (!req.params?.productId) {
+        return res.status(httpStatus.BAD_REQUEST).send({
+          message: "ID error.",
+        });
+      }
+    deleteProduct(req.params.productId)
+    .then((deletedItem) => {
+        if (!deletedItem) {
+          return res.status(httpStatus.NOT_FOUND).send({
+            message: "Product is not found.",
+          });
+        }
+        return res.status(httpStatus.OK).send({
+          message: "The product has been successfully deleted",
+        });
+      })
+      .catch((e) => {
+        res
+          .status(httpStatus.INTERNAL_SERVER_ERROR)
+          .send({ error: "An error occurred while deleting the product." });
+      });
+}
+module.exports={getAllProduct,addProduct,getProduct,updateProduct,removeProduct,getDiscountProduct}

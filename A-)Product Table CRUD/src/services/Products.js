@@ -65,5 +65,19 @@ const updateProductStock = async (productId,modifyStock) => {
  return data
 };
 
+const deleteProduct = async (productId) => {
+  var item= {
+    TableName: table,
+    Key: {
+      productId:productId,
+    },
+    ConditionExpression:"isDiscount = :val",
+    ExpressionAttributeValues: {
+      ":val":false
+    },
+  };  
+  const data= await docClient.delete(item).promise();
+  return data
+};
 
-module.exports = {listAllProduct,createProduct,singleProduct,updateProductStock,discountProduct};
+module.exports = {listAllProduct,createProduct,singleProduct,updateProductStock,deleteProduct,discountProduct};
