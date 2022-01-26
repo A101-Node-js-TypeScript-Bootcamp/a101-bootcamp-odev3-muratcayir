@@ -39,7 +39,7 @@ const getDiscountProduct=(req,res)=>{
 }
 
 const updateProduct=(req,res)=>{
-    if (!req.params?.productId) {
+    if (!req.params?.productId) {// if the id of the product is wrong
         return res.status(httpStatus.BAD_REQUEST).send({
           message: "ID  error",
         });}    
@@ -52,14 +52,14 @@ const updateProduct=(req,res)=>{
 }
 
 const removeProduct=(req,res)=>{
-    if (!req.params?.productId) {
+    if (!req.params?.productId) {// if the id of the product is wrong
         return res.status(httpStatus.BAD_REQUEST).send({
           message: "ID error.",
         });
       }
     deleteProduct(req.params.productId)
     .then((deletedItem) => {
-        if (!deletedItem) {
+        if (!deletedItem) {//if the product is not found
           return res.status(httpStatus.NOT_FOUND).send({
             message: "Product is not found.",
           });

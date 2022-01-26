@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require("uuid");
 let docClient = new AWS.DynamoDB.DocumentClient();
 var table = "products";
 
-const listAllProduct = async () => {
+const listAllProduct = async () => {//all products are listed
   const items = {
     TableName: table,
   };
@@ -12,7 +12,7 @@ const listAllProduct = async () => {
   return data
 };
 
-const createProduct = async (params) => {
+const createProduct = async (params) => {//new product is added
  
   const item = {
     TableName: table,
@@ -30,7 +30,7 @@ const createProduct = async (params) => {
   return await docClient.put(item).promise();
 };
 
-const singleProduct = async (params) => {
+const singleProduct = async (params) => {//Lists the product whose id is entered
   var items = {
     TableName: table,
     Key: {
@@ -40,7 +40,7 @@ const singleProduct = async (params) => {
     return await docClient.get(items).promise();
     
 };
-const discountProduct = async () => {
+const discountProduct = async () => {//If there is a discounted product, it will bring
   const items = {
     TableName: table,
   };
@@ -49,7 +49,7 @@ const discountProduct = async () => {
   return discountFilter
 };
 
-const updateProductStock = async (productId,modifyStock) => {
+const updateProductStock = async (productId,modifyStock) => {//Product stock is updated
   var item = {
     TableName: table,
     Key: {
@@ -65,7 +65,7 @@ const updateProductStock = async (productId,modifyStock) => {
  return data
 };
 
-const deleteProduct = async (productId) => {
+const deleteProduct = async (productId) => { //If there is a discounted product, it will not be deleted.
   var item= {
     TableName: table,
     Key: {
